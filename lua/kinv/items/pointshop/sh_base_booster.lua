@@ -2,12 +2,9 @@ ITEM.PrintName = "Pointshop Booster Base"
 ITEM.baseClass = "base_pointshop_item"
 
 ITEM.category = "Boosters"
-local instc = 0
+
 --Constructor
 function ITEM:initialize( )
-	self.instnum = instc
-	instc = instc + 1
-	print( "Init", self.id, self.instnum )
 	ITEM.super.initialize( self )
 	self.saveFields = self.saveFields or { }
 	self.timeLeft = self.class.boostParams["BasicSettings.Duration"] --gets overwritten if loaded from db
