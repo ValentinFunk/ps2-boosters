@@ -16,7 +16,7 @@ PointsBooster.Settings = {
 		Increment = {
 			label = "Boost Amount in percent",
 			tooltip = "The amount of bonus points awarded as percentage. 50 means that a player gets a 50% bonus every time he earns pointshop 2 points",
-			value = 0.5
+			value = 50
 		}
 	}
 }
