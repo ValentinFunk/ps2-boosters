@@ -17,7 +17,7 @@ end
 --Called in intervals to check if the boost duration should go down
 function ITEM:ShouldDrainTime( )
 	local booster = Pointshop2.GetBoosterByName( self.class.boostType )
-	return booster.ShouldDrainTime( item, ply )
+	return booster.ShouldDrainTime( item, self:GetOwner( ) )
 end
 
 function ITEM:IsDrainable( )
@@ -53,6 +53,11 @@ function ITEM:OnEquip( )
 			if not self or not IsValid( self:GetOwner( ) ) or self.timeLeft <= 0 then 
 				return 
 			end
+			
+			if not self:ShouldDrainTime( ) then
+				return
+			end
+			
 			self:save( )
 		end )
 	end
@@ -60,6 +65,10 @@ function ITEM:OnEquip( )
 	timer.Create( "PS2_ItemDrain" .. self.id, 1, 0, function( )
 		if not self or not IsValid( self:GetOwner( ) ) or self.timeLeft <= 0 then 
 			return 
+		end
+		
+		if not self:ShouldDrainTime( ) then
+			return
 		end
 		
 		self.timeLeft = self.timeLeft - 1
@@ -75,17 +84,6 @@ function ITEM:OnHolster( )
 	timer.Remove( "PS2_ItemDrain" .. self.id )
 	timer.Remove( "PS2_SaveItemDrain" .. self.id )
 end
-
-function ITEM:GiveWeapon( )
-	self:GetOwner( ):Give( self.weaponClass )
-end
-
-function ITEM:PlayerSpawn( ply )
-	if ply == self:GetOwner( ) then
-		self:GiveWeapon( )
-	end
-end
-Pointshop2.AddItemHook( "PlayerSpawn", ITEM )
 
 function ITEM.static.GetPointshopIconControl( )
 	return "DPointshopMaterialIcon"
