@@ -11,7 +11,7 @@ PointsBooster.Settings = {
 		Duration = {
 			label = "Duration in seconds",
 			tooltip = "Duration over which the points bonus is given in seconds. Use 0 for never expiring boosters",
-			value = 60
+			value = 3600
 		},
 		Increment = {
 			label = "Boost Amount in percent",
