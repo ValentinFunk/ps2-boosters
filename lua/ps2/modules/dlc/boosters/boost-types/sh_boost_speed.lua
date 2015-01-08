@@ -21,9 +21,7 @@ SpeedBooster.Settings = {
 	}
 }
 
-function SpeedBooster.ShouldDrainTime( item, ply )
-	return ply:Alive( ) and ( ply.IsSpec and not ply:IsSpec( ) )
-end
+SpeedBooster.ShouldDrainTime = Pointshop2.BoostDrainWhenAlive
 
 Pointshop2.AddBoosterType( SpeedBooster )
 

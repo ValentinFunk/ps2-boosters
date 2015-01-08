@@ -6,4 +6,21 @@ hook.Add( "PS2_ModulesLoaded", "DLC_Boosters", function( )
 		icon = "pointshop2/vip2.png",
 		creator = "DBoosterCreator"
 	} )
+	
+	MODULE.Settings.Shared.BoosterSettings = {
+		info = {
+			label = "Booster Settings"
+		},
+		UseCustomChancePicker = {
+			value = true,
+			label = "Use PS2 Role Picker",
+			tooltip = "Overrides the TTT role picking system to use a custom version using weighted random maps. Required for using the TTT: Role Chance booster."
+		},
+	}
+	
+	table.insert( MODULE.SettingButtons, {
+		label = "Booster Settings",
+		icon = "pointshop2/small43.png",
+		control = "DPointshop2BoostersConfigurator"
+	} )
 end )

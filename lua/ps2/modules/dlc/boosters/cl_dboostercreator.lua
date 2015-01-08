@@ -3,22 +3,16 @@ local PANEL = {}
 function PANEL:Init( )
 	self:addSectionTitle( "Booster Settings" )
 	
-	self.typeElem = vgui.Create( "DRadioChoice" )
-	function self.typeElem.OnChange( )
-		self.settingsPanel:Initialize( self.typeElem:GetSelectedOption( ).BoosterType.Settings )
+	self.typeElem = vgui.Create( "DComboBox" )
+	function self.typeElem.OnSelect( _self, index, value, data )
+		self.settingsPanel:Initialize( data.Settings )
+		self.selectedType = data.Name
 	end
-	self.typeElem:SetSkin( Pointshop2.Config.DermaSkin )
+	--self.typeElem:SetSkin( Pointshop2.Config.DermaSkin )
 	self.typeElem:SetWide( 200 )
-	function self.typeElem:PerformLayout( )
-		self:SizeToChildren( false, true )
-	end
-	
 	for k, v in pairs( Pointshop2.BoosterTypes ) do
-		local option = self.typeElem:AddOption( v.Name, true )
-		option.BoosterType = v
+		local option = self.typeElem:AddChoice( v.Name, v )
 	end
-	
-	self.typeElem:InvalidateLayout( )
 	
 	local cont = self:addFormItem( "Type", self.typeElem )
 	function cont.PerformLayout( )
@@ -58,7 +52,7 @@ function PANEL:Init( )
 		return self.actualSettings.settings
 	end
 	
-	self.typeElem:SelectChoice( 1 )
+	self.typeElem:ChooseOptionID( 1 )
 	
 	
 	self.selectMatElem = vgui.Create( "DPanel" )
@@ -125,7 +119,7 @@ function PANEL:SaveItem( saveTable )
 	self.BaseClass.SaveItem( self, saveTable )
 	
 	saveTable.material = self.manualEntry:GetText( )
-	saveTable.boostType = self.typeElem:GetSelectedOption( ).BoosterType.Name
+	saveTable.boostType = self.selectedType
 	saveTable.boostParams = self.settingsPanel:GetSettingsTable( )
 end
 
@@ -134,7 +128,13 @@ function PANEL:EditItem( persistence, itemClass )
 	
 	self.manualEntry:SetText( persistence.material )
 	self.materialPanel:SetMaterial( persistence.material )
-	self.typeElem:SelectChoiceByText( persistence.boostType )
+	
+	for id, data in pairs( self.typeElem.Data ) do
+		if data.Name == persistence.boostType then
+			self.typeElem:ChooseOptionID( id )
+		end
+	end
+	
 	self.settingsPanel:Initialize( Pointshop2.GetBoosterByName( persistence.boostType ).Settings )
 	self.settingsPanel:SetSettings( persistence.boostParams )
 end

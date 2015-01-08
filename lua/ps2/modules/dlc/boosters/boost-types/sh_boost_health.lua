@@ -21,9 +21,7 @@ HealthBooster.Settings = {
 	}
 }
 
-function HealthBooster.ShouldDrainTime( item, ply )
-	return ply:Alive( ) and ( ply.IsSpec and not ply:IsSpec( ) )
-end
+HealthBooster.ShouldDrainTime = Pointshop2.BoostDrainWhenAlive
 
 Pointshop2.AddBoosterType( HealthBooster )
 
