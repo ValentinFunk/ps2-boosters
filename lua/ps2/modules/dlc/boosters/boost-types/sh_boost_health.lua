@@ -26,14 +26,20 @@ HealthBooster.ShouldDrainTime = Pointshop2.BoostDrainWhenAlive
 Pointshop2.AddBoosterType( HealthBooster )
 
 if SERVER then
-	hook.Add( "PlayerSpawn", "BoostHP", function( ply )
+	local function ApplyBooster( ply )
 		local booster = ply:PS2_GetItemInSlot( "Booster" )
 		if not booster then 
 			return 
 		end
-		
+
 		if booster.boostType == "Health" then
 			ply:SetHealth( ply:Health( ) + booster.boostParams["BasicSettings.BonusHP"] )
 		end
+	end
+	
+	hook.Add( "PlayerSpawn", "BoostHP", function( ply )
+		timer.Simple( 0, function( )
+			ApplyBooster( ply )
+		end )
 	end )
  end
