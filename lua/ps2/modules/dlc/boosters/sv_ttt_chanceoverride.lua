@@ -55,7 +55,7 @@ local function getChanceBoost( ply, role )
 	local booster = ply:PS2_GetItemInSlot( "Booster" )
 	if booster then 
 		if booster.boostType == "TTT: Role Chance" then
-			if role ==  booster.boostParams["BasicSettings.Role"] then
+			if role == booster.boostParams["BasicSettings.Role"] then
 				return 1 + booster.boostParams["BasicSettings.ChanceIncrease"] / 100
 			end
 		end
