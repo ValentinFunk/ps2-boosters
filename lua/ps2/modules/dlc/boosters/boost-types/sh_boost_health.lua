@@ -34,6 +34,9 @@ if SERVER then
 
 		if booster.boostType == "Health" then
 			ply:SetHealth( ply:Health( ) + booster.boostParams["BasicSettings.BonusHP"] )
+			if ply:GetMaxHealth( ) < ply:Health( ) then
+				ply:SetMaxHealth( ply:Health( ) )
+			end
 		end
 	end
 	
@@ -41,5 +44,13 @@ if SERVER then
 		timer.Simple( 0, function( )
 			ApplyBooster( ply )
 		end )
+	end )
+	
+	hook.Add( "TTTBeginRound", "BoostHP", function( ) 
+		for k, v in pairs( player.GetAll( ) ) do
+			timer.Simple( 0, function( )
+				ApplyBooster( v )
+			end )
+		end
 	end )
  end
