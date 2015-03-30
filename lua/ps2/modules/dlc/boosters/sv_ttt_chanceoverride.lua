@@ -104,7 +104,13 @@ local function NewSelectRoles()
 		weightedMap[v] = weightedMap[v] * getChanceBoost( v, "Traitor" )
 	end
 	pickRole( weightedMap, ROLE_TRAITOR, traitor_count )
-	
+	for k, v in pairs( choices ) do
+		if v:GetRole( ) == ROLE_TRAITOR then
+			choices[k] = nil
+		end
+	end
+
+	weightedMap = {}
 	-- Pick Detectives
 	local min_karma = GetConVarNumber("ttt_detective_min_karma") or 0
 	for k, v in pairs( choices ) do
@@ -128,6 +134,7 @@ local function NewSelectRoles()
 		weightedMap[v] = weightedMap[v] * getChanceBoost( v, "Detective" )
 	end
 	local amountSelected = pickRole( weightedMap, ROLE_DETECTIVE, det_count )
+	
 	-- sometimes we need all remaining choices to be detective to fill the
 	-- roles up, this happens more often with a lot of detective-deniers
 	if amountSelected < det_count then
