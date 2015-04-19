@@ -1,3 +1,7 @@
+/*
+	PS2 Boosters r2342-{{ user_id }}
+*/
+
 hook.Add( "PS2_ModulesLoaded", "DLC_Boosters", function( )
 	local MODULE = Pointshop2.GetModule( "Pointshop 2 DLC" )
 	table.insert( MODULE.Blueprints, {
