@@ -86,6 +86,10 @@ function ITEM.static.GetPointshopIconControl( )
 	return "DPointshopMaterialIcon"
 end
 
+function ITEM.static:GetPointshopLowendIconControl( )
+	return "DPointshopMaterialIcon" 
+end
+
 function ITEM.static.GetPointshopDescriptionControl( )
 	return "DBoosterItemDescription"
 end
