@@ -28,3 +28,9 @@ hook.Add( "PS2_ModulesLoaded", "DLC_Boosters", function( )
 		control = "DPointshop2BoostersConfigurator"
 	} )
 end )
+
+hook.Add( "PS2_PopulateCredits", "AddBoostersCredit", function( panel )
+	panel:AddCreditSection( "Pointshop 2 Boosters", [[
+Pointshop 2 Boosters by Kamshak
+	]] )
+end )

@@ -64,7 +64,7 @@ if SERVER then
 	end )
 	
 	hook.Add( "PlayerDeath", "JumpoostTTTres", function( ply )
-		ResetBooster( v )
+		ResetBooster( ply )
 	end )
 
  end
