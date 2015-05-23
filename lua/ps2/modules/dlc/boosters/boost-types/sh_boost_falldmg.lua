@@ -41,7 +41,7 @@ if SERVER then
 			return 
 		end
 		
-		if not booster.bostType == "Fall Damage Reduction" then
+		if booster.bostType != "Fall Damage Reduction" then
 			return
 		end
 		
