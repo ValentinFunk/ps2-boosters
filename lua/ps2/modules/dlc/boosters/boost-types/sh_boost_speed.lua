@@ -38,7 +38,7 @@ if SERVER then
 		
 		if slowed then return end
 		
-		if isSpeedBoost( SpeedBooster.Name ) then
+		if isSpeedBoost( booster.boostType ) then
 			return 1 + booster.boostParams["BasicSettings.SpeedIncrease"] / 100
 		end
 	end )
@@ -56,7 +56,7 @@ if SERVER then
 				return 
 			end
 
-			if isSpeedBoost( SpeedBooster.Name ) then
+			if isSpeedBoost( booster.boostType ) then
 				local mul = 1 + booster.boostParams["BasicSettings.SpeedIncrease"] / 100
 				
 				if GAMEMODE.Deathrun_Func then
