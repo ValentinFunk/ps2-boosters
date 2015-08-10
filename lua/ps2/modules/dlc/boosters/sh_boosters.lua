@@ -3,7 +3,9 @@ Pointshop2.BoosterAlt = {}
 
 function Pointshop2.AddBoosterType( tbl )
 	Pointshop2.BoosterTypes[tbl.Name] = tbl
-	Pointshop2.BoosterAlt[tbl.AltName] = tbl
+	if tbl.AltName then
+		Pointshop2.BoosterAlt[tbl.AltName] = tbl
+	end
 end
 
 function Pointshop2.GetBoosterByName( name )
