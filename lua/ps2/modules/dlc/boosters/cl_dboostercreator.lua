@@ -125,16 +125,12 @@ Don't forget to upload the material to your fastdl, too!]] )
 end
 
 function PANEL:SaveItem( saveTable )
-	self.BaseClass.SaveItem( self, saveTable )
-	
 	saveTable.material = self.manualEntry:GetText( )
 	saveTable.boostType = self.selectedType
 	saveTable.boostParams = self.settingsPanel:GetSettingsTable( )
 end
 
 function PANEL:EditItem( persistence, itemClass )
-	self.BaseClass.EditItem( self, persistence.ItemPersistence, itemClass )
-	
 	self.manualEntry:SetText( persistence.material )
 	self.materialPanel:SetMaterial( persistence.material )
 	
@@ -146,15 +142,6 @@ function PANEL:EditItem( persistence, itemClass )
 	
 	self.settingsPanel:Initialize( Pointshop2.GetBoosterByName( persistence.boostType ).Settings )
 	self.settingsPanel:SetSettings( persistence.boostParams )
-end
-
-function PANEL:Validate( saveTable )
-	local succ, err = self.BaseClass.Validate( self, saveTable )
-	if not succ then
-		return succ, err
-	end
-	
-	return true
 end
 
 vgui.Register( "DItemCreator_BoosterStage", PANEL, "DItemCreator_Stage" )
