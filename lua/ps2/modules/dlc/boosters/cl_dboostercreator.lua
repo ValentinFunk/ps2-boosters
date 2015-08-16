@@ -1,8 +1,17 @@
 local PANEL = {}
 
 function PANEL:Init( )
-	self:addSectionTitle( "Booster Settings" )
-	
+	self.modelAndPositioningPanel = vgui.Create( "DItemCreator_BoosterStage" )
+	self.stepsPanel:AddStep( "Booster Settings", self.modelAndPositioningPanel )
+end
+
+vgui.Register( "DBoosterCreator", PANEL, "DItemCreator_Steps" )
+
+local PANEL = {}
+function PANEL:Paint( )
+end
+
+function PANEL:Init( )
 	self.typeElem = vgui.Create( "DComboBox" )
 	function self.typeElem.OnSelect( _self, index, value, data )
 		self.settingsPanel:Initialize( data.Settings )
@@ -148,4 +157,4 @@ function PANEL:Validate( saveTable )
 	return true
 end
 
-vgui.Register( "DBoosterCreator", PANEL, "DItemCreator" )
+vgui.Register( "DItemCreator_BoosterStage", PANEL, "DItemCreator_Stage" )
