@@ -144,4 +144,8 @@ function PANEL:EditItem( persistence, itemClass )
 	self.settingsPanel:SetSettings( persistence.boostParams )
 end
 
+function PANEL:Validate( saveTable )
+	return true
+end
+
 vgui.Register( "DItemCreator_BoosterStage", PANEL, "DItemCreator_Stage" )
