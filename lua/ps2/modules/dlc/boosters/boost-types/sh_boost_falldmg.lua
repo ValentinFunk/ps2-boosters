@@ -41,7 +41,7 @@ if SERVER then
 			return 
 		end
 		
-		if booster.bostType != "Fall Damage Reduction" then
+		if booster.boostType != FallDmgBooster.Name then
 			return
 		end
 		
