@@ -26,43 +26,45 @@ Booster.ShouldDrainTime = Pointshop2.BoostDrainWhenAlive
 Pointshop2.AddBoosterType( Booster )
 
 if SERVER then
-	local function GetDefaultJumpPower( )
+	local function GetDefaultJumpPower( ply )
 		if GAMEMODE.Deathrun_Func then
 			-- MrGash/Deathrun
 			return 190
 		end
 		if engine.ActiveGamemode( ) == "terrortown" then
-			-- TTT 
+			-- TTT
 			return 160
 		end
-		
+
+		local playerClass = player_manager.GetPlayerClass( ply )
+
 		-- Default or Blackvoid/Deathrun
-		local class = baseclass.Get( player_manager.GetPlayerClass( ply ) )
+		local class = playerClass and baseclass.Get( playerClass ) or { JumpPower = 160 }
 		return class.JumpPower
 	end
 
 	local function ApplyBooster( ply )
 		local booster = ply:PS2_GetItemInSlot( "Booster" )
-		if not booster then 
-			return 
+		if not booster then
+			return
 		end
 
 		if booster.boostType == Booster.Name then
-			local mul = 1 + booster.boostParams["BasicSettings.JumpIncrease"] / 100 
-			ply:SetJumpPower( GetDefaultJumpPower( ) * mul )
+			local mul = 1 + booster.boostParams["BasicSettings.JumpIncrease"] / 100
+			ply:SetJumpPower( GetDefaultJumpPower( ply ) * mul )
 		end
 	end
-	
+
 	local function ResetBooster( ply )
-		ply:SetJumpPower( GetDefaultJumpPower( ) )
+		ply:SetJumpPower( GetDefaultJumpPower( ply ) )
 	end
-	
+
 	hook.Add( "PlayerSpawn", "Jump", function( ply )
 		timer.Simple( 0, function( )
 			ApplyBooster( ply )
 		end )
 	end )
-	
+
 	hook.Add( "PlayerDeath", "JumpoostTTTres", function( ply )
 		ResetBooster( ply )
 	end )
