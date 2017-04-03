@@ -1,0 +1,13 @@
+node_modules/**
+package.json
+.gitignore
+.editorconfig
+.npmrc
+*.log
+.DS_Store
+*.tmp
+.gmodignore
+*.tmp.md
+.env
+yarn.lock
+changelog_footer_template.hbs
