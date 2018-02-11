@@ -12,7 +12,7 @@ function PANEL:Paint( )
 end
 
 function PANEL:Init( )
-	self.typeElem = vgui.Create( "DComboBox" )
+	self.typeElem = vgui.Create( "DComboBoxHack" )
 	function self.typeElem.OnSelect( _self, index, value, data )
 		self.settingsPanel:Initialize( data.Settings )
 		self.selectedType = data.Name
@@ -81,6 +81,7 @@ function PANEL:Init( )
 		local window = vgui.Create( "DMaterialSelector" )
 		window:Center( )
 		window:MakePopup( )
+		window:DoModal()
 		Pointshop2View:getInstance( ):requestMaterials( "boosters" )
 		:Done( function( files )
 			window:SetMaterials( "boosters", files )
