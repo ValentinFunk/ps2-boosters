@@ -18,8 +18,8 @@ async function createRelease () {
     ignore: ignoreGlobs
   })
   
-  mkdir('-p', 'dist/ps2-gamble')
-  folders.map(x => mkdir('dist/ps2-gamble/' + x))
+  mkdir('-p', 'dist/ps2-boosters')
+  folders.map(x => mkdir('dist/ps2-boosters/' + x))
 
   const files = glob.sync('**', {
     ignore: ignoreGlobs,
