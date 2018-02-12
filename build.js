@@ -26,7 +26,7 @@ async function createRelease () {
     nodir: true
   })
 
-  files.map(file => cp(file, 'dist/ps2-gamble/' + file))
+  files.map(file => cp(file, 'dist/ps2-boosters/' + file))
 
   cp('package.json', 'dist')
   cp('.gmodignore', 'dist')
