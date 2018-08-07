@@ -157,9 +157,9 @@ local function NewSelectRoles()
 	end
 end
 
-hook.Add( "Initialize", "OldPickSaver", function( )
+local OldSelectInitializedPromise = LibK.InitPostEntityPromise:Then(function()
 	OldSelectRoles = OldSelectRoles or SelectRoles
-end )
+end)
 
 local function ReplaceSelectMethod( )
 	if Pointshop2.GetSetting( "Pointshop 2 DLC", "BoosterSettings.UseCustomChancePicker" ) then
@@ -171,8 +171,12 @@ local function ReplaceSelectMethod( )
 end
 
 hook.Add( "PS2_OnSettingsUpdate", "ChangeKeyHook", function( )
-	ReplaceSelectMethod( )
+	OldSelectInitializedPromise:Done(function()
+		ReplaceSelectMethod( )
+	end)
 end )
-Pointshop2.SettingsLoadedPromise:Done( function( )
-	ReplaceSelectMethod( )
+Pointshop2.SettingsLoadedPromise:Then( function( )
+	return OldSelectInitializedPromise
+end ):Done(function()
+		ReplaceSelectMethod( )
 end )
